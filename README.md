@@ -89,9 +89,8 @@ Every output is archived, searchable, and ready to share.
 ## Repository Contents
 | File | Description |
 |------|-------------|
-| `Sora2-n8n-Hollywood-Ad-Generator.json` | Main n8n workflow file |
+| `47_AI Ads Sora.json` | Main n8n workflow file |
 | `README.md` | Documentation (this file) |
-| `preview.png` | Workflow diagram or sample ad still |
 
 ---
 
