@@ -1,0 +1,453 @@
+{
+  "name": "47_AI Ads Sora",
+  "nodes": [
+    {
+      "parameters": {
+        "formTitle": "Upload Product Photo",
+        "formFields": {
+          "values": [
+            {
+              "fieldLabel": "Upload Product Photo",
+              "fieldType": "file"
+            },
+            {
+              "fieldLabel": "aspect_ratio",
+              "fieldType": "dropdown",
+              "fieldOptions": {
+                "values": [
+                  {
+                    "option": "portrait"
+                  },
+                  {
+                    "option": "landscape"
+                  }
+                ]
+              }
+            },
+            {
+              "fieldLabel": "Description"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.formTrigger",
+      "typeVersion": 2.3,
+      "position": [
+        256,
+        16
+      ],
+      "id": "6a6c24c3-b408-4160-b963-3dc37826b587",
+      "name": "On form submission",
+      "webhookId": "207ff7cf-fdbc-4940-9ac9-377ce6b99c46"
+    },
+    {
+      "parameters": {
+        "resource": "image",
+        "operation": "analyze",
+        "modelId": {
+          "__rl": true,
+          "value": "gpt-4o",
+          "mode": "list",
+          "cachedResultName": "GPT-4O"
+        },
+        "text": "=## Role and Objective \nYou are an expert visual analyst specializing in creating comprehensive, structured descriptions of the PRIMARY SUBJECT in images. Your task is to examine uploaded images and produce exhaustively detailed YAML descriptions that capture every observable characteristic of the main person or product, IGNORING background elements entirely. \n\n## Core Mission \n\nTransform visual information about the PRIMARY SUBJECT ONLY into structured YAML format that provides enough detail for AI systems to recreate the person or product with high fidelity in any new environment. Focus exclusively on the subject's intrinsic characteristics, not their surroundings. \n\n## Analysis Methodology \n### Step 1: Subject Isolation - Identify and focus EXCLUSIVELY on the primary subject (person or product) - Mentally separate the subject from any background, props, or environmental elements - Note how lighting affects the subject, but ignore light sources and surroundings \n\n### Step 2: Systematic Subject Scanning Use this focused approach: 1. **Overall subject form** - Shape, size, proportions of the main subject only 2. **Surface characteristics** - Materials, textures, colors of the subject itself 3. **Structural details** - Components, features, construction of the subject 4. **Fine details** - Intrinsic textures, patterns, markings on the subject 5. **Subject-specific attributes** - Unique characteristics that define this particular subject \n\n### Step 3: YAML Structure Generation Based on subject type, use the appropriate template structure with exhaustive detail in each field. ## YAML Output Templates ### For Products\nyaml\nsubject_metadata:\n  subject_type: \"Product or Person\"\n  analysis_focus: \"Subject-only, background ignored\"\n  lighting_note: \"How light affects subject appearance only\"\n\nproduct:\n  identification:\n    category: \"Specific product type\"\n    subcategory: \"More specific classification\"\n    brand: \"Brand name if visible\"\n    model_series: \"Model name/number if discernible\"\n  \n  physical_structure:\n    overall_shape: \"Geometric description with proportions\"\n    dimensions:\n      height_to_width_ratio: \"Proportional relationship\"\n      depth_perception: \"3D form description\"\n      size_context: \"Relative to common objects\"\n    \n    construction:\n      build_quality: \"Robust, delicate, industrial, consumer-grade\"\n      assembly_type: \"Welded, sewn, molded, assembled\"\n      joint_connections: \"How parts connect together\"\n  \n  materials_and_surfaces:\n    primary_material:\n      type: \"Metal, plastic, fabric, glass, ceramic, etc.\"\n      specific_variety: \"Aluminum, cotton, tempered glass, etc.\"\n      surface_treatment: \"Brushed, polished, matte, textured\"\n      tactile_appearance: \"How it would likely feel to touch\"\n    \n    secondary_materials:\n      accents: \"Trim, hardware, decorative elements\"\n      functional_components: \"Buttons, handles, mechanical parts\"\n      protective_elements: \"Coatings, gaskets, padding\"\n    \n    surface_characteristics:\n      finish_type: \"Glossy, matte, satin, textured, pebbled\"\n      wear_patterns: \"New, used, weathered, vintage\"\n      surface_imperfections: \"Scratches, dents, stains, marks\"\n      cleanliness_state: \"Pristine, dusty, dirty, stained\"\n  \n  color_analysis:\n    primary_colors:\n      dominant_color: \"Main color with specific shade name\"\n      color_saturation: \"Vibrant, muted, pastel, deep\"\n      color_temperature: \"Warm, cool, neutral undertones\"\n    \n    color_palette_hex:\n      dominant_hex: \"#RRGGBB\"\n      accent_1_hex: \"#RRGGBB\"\n      accent_2_hex: \"#RRGGBB\"\n      neutral_hex: \"#RRGGBB\"\n      \n    secondary_colors:\n      accent_colors: \"Additional colors and their locations\"\n      color_transitions: \"Gradients, fading, color breaks\"\n      metallic_elements: \"Gold, silver, copper tones if present\"\n    \n    color_context:\n      lighting_effect_on_color: \"How lighting changes color appearance\"\n      color_consistency: \"Uniform or varied across surface\"\n      reflective_qualities: \"Color changes with viewing angle\"\n  \n  distinctive_details:\n    branding_elements:\n      logos: \"Logo placement, size, style, visibility\"\n      text_elements: \"Model numbers, labels, instructions\"\n      brand_styling: \"Typography, design language\"\n    \n    functional_features:\n      controls: \"Buttons, switches, dials, interfaces\"\n      openings: \"Ports, vents, access points\"\n      mechanical_elements: \"Moving parts, hinges, mechanisms\"\n    \n    decorative_aspects:\n      patterns: \"Stripes, dots, geometric designs\"\n      textures: \"Embossed, engraved, raised elements\"\n      artistic_details: \"Ornamental features, styling cues\"\n  \n  condition_assessment:\n    overall_state: \"New, lightly used, well-worn, damaged\"\n    specific_wear_signs:\n      surface_wear: \"Scratches, scuffs, polish wear\"\n      structural_wear: \"Loose parts, alignment issues\"\n      color_fade: \"Sun fading, chemical staining\"\n    maintenance_level: \"Well-maintained, neglected, restored\"\n  \n  lighting_on_subject:\n    how_light_hits_subject: \"Where light naturally illuminates the subject\"\n    subject_shadows: \"Shadows cast by subject's own form/features\"\n    subject_reflections: \"Reflections on subject's surfaces only\"\n    subject_transparency: \"Any transparent/translucent areas of subject\"\n### For People\nyaml\nsubject_metadata:\n  subject_type: \"Person\"\n  analysis_focus: \"Subject-only, background ignored\"\n  viewing_angle: \"How we're seeing the person (front, profile, 3/4 view)\"\n\nperson:\n  demographic_appearance:\n    apparent_age_range: \"Specific age estimation with reasoning\"\n    gender_presentation: \"How they present themselves visually\"\n    cultural_context: \"If discernible from visual elements\"\n  \n  facial_analysis:\n    overall_facial_structure:\n      face_shape: \"Oval, round, square, heart, diamond, oblong\"\n      facial_proportions: \"Forehead to chin ratio, width relationships\"\n      bone_structure: \"Prominent, delicate, angular, soft\"\n    \n    skin_characteristics:\n      skin_tone: \"Specific color description with undertones\"\n      skin_texture: \"Smooth, textured, porous, fine-grained\"\n      complexion_quality: \"Clear, blemished, freckled, weathered\"\n      skin_condition: \"Healthy, dry, oily, sun-damaged, youthful\"\n    \n    eyes:\n      eye_color: \"Specific color including variations and patterns\"\n      eye_shape: \"Almond, round, hooded, upturned, downturned\"\n      eye_size: \"Large, small, proportional to face\"\n      eyelids: \"Single, double, hooded, prominent\"\n      eyelashes: \"Length, thickness, natural or enhanced\"\n      eyebrows:\n        shape: \"Arched, straight, angular, rounded\"\n        thickness: \"Thin, thick, full, sparse\"\n        grooming: \"Natural, plucked, threaded, filled\"\n        color: \"Matches hair or different shade\"\n    \n    nose:\n      nose_shape: \"Straight, Roman, button, aquiline, bulbous\"\n      nose_size: \"Proportional description relative to face\"\n      nostril_shape: \"Narrow, wide, flared, delicate\"\n      bridge_characteristics: \"High, low, wide, narrow\"\n    \n    mouth_and_lips:\n      lip_fullness: \"Full, thin, average, uneven\"\n      lip_shape: \"Cupid's bow, straight, wide, narrow, heart-shaped\"\n      mouth_size: \"Wide, narrow, proportional\"\n      current_expression: \"Smiling, neutral, frowning, speaking\"\n      lip_color: \"Natural, enhanced, lipstick color if visible\"\n    \n    facial_hair:\n      presence: \"Clean-shaven, stubble, beard, mustache\"\n      style: \"Full beard, goatee, handlebar, specific cut\"\n      color: \"Same as hair, different, graying pattern\"\n      grooming_level: \"Well-trimmed, unkempt, styled\"\n    \n    distinctive_facial_features:\n      marks: \"Scars, moles, birthmarks, freckle patterns\"\n      piercings: \"Ear, nose, lip, eyebrow piercings\"\n      tattoos: \"Visible facial or neck tattoos\"\n      unique_characteristics: \"Dimples, cleft chin, prominent features\"\n  \n  hair_analysis:\n    color_description:\n      natural_color: \"Base hair color\"\n      color_variations: \"Highlights, lowlights, roots showing\"\n      artificial_coloring: \"Dyed colors, temporary colors\"\n      color_distribution: \"Uniform, ombre, balayage, streaks\"\n    \n    texture_and_structure:\n      hair_type: \"Straight, wavy, curly, coily, kinky\"\n      texture_quality: \"Fine, thick, coarse, silky\"\n      density: \"Thick, thin, full, sparse\"\n      condition: \"Healthy, damaged, dry, oily, styled\"\n    \n    length_and_style:\n      length_description: \"Specific length measurements or references\"\n      cut_style: \"Bob, layers, blunt, shag, pixie, etc.\"\n      styling_method: \"Blown out, curled, straightened, natural\"\n      hair_accessories: \"Clips, bands, headbands, decorative items\"\n  \n  body_and_posture:\n    build_description:\n      overall_build: \"Slim, athletic, average, heavyset, muscular\"\n      body_proportions: \"Tall, short, long-limbed, compact\"\n      posture_quality: \"Upright, slouched, confident, relaxed, tense\"\n    \n    visible_body_parts:\n      hands: \"Manicured, natural, jewelry, visible veins\"\n      arms: \"Muscular, slender, tattooed, jewelry\"\n      shoulders: \"Broad, narrow, sloped, square\"\n      neck: \"Long, short, jewelry, tattoos\"\n  \n  clothing_analysis:\n    overall_style:\n      fashion_category: \"Casual, formal, business, artistic, vintage\"\n      style_era: \"Contemporary, retro, classic, trendy\"\n      fit_quality: \"Well-fitted, loose, tight, oversized, tailored\"\n      condition: \"New, worn, vintage, distressed, pristine\"\n    \n    garment_details:\n      outerwear:\n        type: \"Jacket, coat, sweater, cardigan, blazer\"\n        material: \"Wool, cotton, leather, synthetic\"\n        color_and_pattern: \"Specific colors, prints, textures\"\n        cut_and_style: \"Fitted, boxy, cropped, long\"\n      \n      main_clothing:\n        top: \"Shirt, blouse, t-shirt, tank top, dress\"\n        bottom: \"Pants, skirt, shorts, dress continuation\"\n        material_appearance: \"Cotton, silk, denim, knit\"\n        colors_patterns: \"Solid, striped, printed, textured\"\n      \n      accessories:\n        jewelry: \"Necklaces, earrings, rings, bracelets, watches\"\n        bags: \"Handbags, backpacks, briefcases, clutches\"\n        shoes: \"Style, color, condition, heel height if visible\"\n        other_accessories: \"Belts, scarves, hats, glasses\"\n    \n    brand_indicators:\n      visible_logos: \"Brand names, designer elements\"\n      luxury_indicators: \"High-end materials, craftsmanship signs\"\n      price_point_clues: \"Mass market vs. designer appearance\"\n  \n  expression_and_demeanor:\n    facial_expression:\n      primary_emotion: \"Happy, sad, neutral, surprised, concerned\"\n      micro_expressions: \"Subtle emotional indicators\"\n      eye_expression: \"Alert, tired, focused, dreamy, intense\"\n      mouth_position: \"Relaxed, tense, smiling, speaking\"\n    \n    body_language:\n      arm_position: \"Crossed, at sides, gesturing, in pockets\"\n      hand_gestures: \"Open, closed, pointing, holding objects\"\n      stance: \"Confident, shy, relaxed, formal, casual\"\n      overall_energy: \"High, low, calm, excited, tired, alert\"\n  \n    contextual_elements:\n      lighting_on_person:\n        natural_lighting_effect: \"How light naturally falls on the person\"\n        shadow_patterns_on_body: \"Shadows created by person's own features\"\n        skin_reflectivity: \"How light interacts with skin surfaces\"\n        clothing_light_interaction: \"How fabrics respond to lighting\"\n      \n      photographic_perspective:\n        viewing_angle: \"Front view, profile, 3/4 turn, etc.\"\n        body_visibility: \"Full body, torso, portrait crop, etc.\"\n        pose_relationship: \"How pose affects overall appearance\"\n\n### Analysis Instructions \n### Subject-Only Focus Protocol \n1. **Isolate the subject**: Mentally extract the person/product from any background \n2. **Ignore environmental elements**: No background, props, or setting descriptions \n3. **Focus on intrinsic qualities**: Only characteristics that belong to the subject itself \n4. **Note lighting effects**: How light affects the subject's appearance, not light sources \n5. **Subject-centric perspective**: Describe viewing angle and crop in relation to subject only ### Quality Standards - **Completeness**: Fill every applicable field with detailed information - **Precision**: Use specific terminology rather than vague descriptors - **Consistency**: Maintain consistent vocabulary throughout the analysis - **Professional language**: Use industry-standard terms for materials, colors, styles ### Output Requirements - Begin analysis immediately after receiving an image - Use the complete YAML structure appropriate to the subject type - Fill all applicable fields with detailed observations about THE SUBJECT ONLY - Include subject_metadata section with subject-focused information - Completely ignore background, setting, props, or environmental elements - Focus exclusively on characteristics that would follow the subject into any new scene - Provide reasoning for any uncertain observations about the subject itself ## Important Guidelines - **IGNORE ALL BACKGROUND ELEMENTS** - Focus purely on the subject - **Never describe setting, environment, or props** that aren't part of the subject - **Avoid subjective judgments** about style choices or aesthetics - **Focus on portable characteristics** - features that move with the subject - **Use comparative references** for scale and context when helpful - **Maintain respectful language** especially when describing people - **Include uncertainty indicators** if subject elements are unclear (\"appears to be,\" \"likely\") - **Remember the goal**: Create a description that allows recreation of this exact subject in ANY new environment Ready to analyze your subject and provide comprehensive YAML documentation focused exclusively on the person or product!\n6. In the color_palette_hex section, you MUST provide the specific hex codes for the dominant, accent, and neutral colors found on the product itself.",
+        "imageUrls": "={{ $json.webContentLink }}",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 1.8,
+      "position": [
+        688,
+        16
+      ],
+      "id": "5a1faa12-a632-4fa8-a418-d32505dafc78",
+      "name": "Analyze image",
+      "credentials": {
+        "openAiApi": {
+          "id": "bROY7n2GVoTa9ed4",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "model": "google/gemini-2.5-pro",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenRouter",
+      "typeVersion": 1,
+      "position": [
+        768,
+        224
+      ],
+      "id": "6cabecdf-2404-43e2-bec9-7cf65855cc75",
+      "name": "OpenRouter Chat Model",
+      "credentials": {
+        "openRouterApi": {
+          "id": "OKXl16r8Jnur9uD1",
+          "name": "OpenRouter account 1"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsonSchemaExample": "{\n  \"output\": \"\"\n}",
+        "autoFix": true
+      },
+      "type": "@n8n/n8n-nodes-langchain.outputParserStructured",
+      "typeVersion": 1.3,
+      "position": [
+        1072,
+        224
+      ],
+      "id": "a3f8c554-5120-475f-8ac9-42fc7fd71bac",
+      "name": "Structured Output Parser"
+    },
+    {
+      "parameters": {
+        "operation": "create",
+        "databaseId": 295474,
+        "tableId": 686676,
+        "fieldsUi": {
+          "fieldValues": [
+            {
+              "fieldId": 5676569,
+              "fieldValue": "={{ $('On form submission').item.json['Upload Product Photo'][0].filename }}"
+            },
+            {
+              "fieldId": 5881324,
+              "fieldValue": "={{ $('Upload product image').item.json.webContentLink }}"
+            },
+            {
+              "fieldId": 5881325,
+              "fieldValue": "={{ $('On form submission').item.json.aspect_ratio }}"
+            },
+            {
+              "fieldId": 5881328,
+              "fieldValue": "={{ $('On form submission').item.json.Description }}"
+            },
+            {
+              "fieldId": 5881329,
+              "fieldValue": "={{ $json.webContentLink }}"
+            },
+            {
+              "fieldId": 5881508,
+              "fieldValue": "Done"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.baserow",
+      "typeVersion": 1,
+      "position": [
+        1888,
+        16
+      ],
+      "id": "e9457f7b-e1dd-4ea3-a684-2f7a2ab5f230",
+      "name": "Create a row",
+      "credentials": {
+        "baserowApi": {
+          "id": "ce6a3Q3BApowCcgf",
+          "name": "Baserow account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "url": "={{ JSON.parse($json.data.resultJson).resultUrls[0] }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1456,
+        16
+      ],
+      "id": "1c27e170-068f-46e7-b78c-980089672e4f",
+      "name": "Download Video"
+    },
+    {
+      "parameters": {
+        "name": "={{ $binary.data.fileName }}",
+        "driveId": {
+          "__rl": true,
+          "value": "My Drive",
+          "mode": "list",
+          "cachedResultName": "My Drive",
+          "cachedResultUrl": "https://drive.google.com/drive/my-drive"
+        },
+        "folderId": {
+          "__rl": true,
+          "value": "1s9NwQ3nirwzMB2dJenbqATnhHu6gf5JM",
+          "mode": "list",
+          "cachedResultName": "Product Videos",
+          "cachedResultUrl": "https://drive.google.com/drive/folders/1s9NwQ3nirwzMB2dJenbqATnhHu6gf5JM"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3,
+      "position": [
+        1680,
+        16
+      ],
+      "id": "32f59801-9fcd-400a-b76b-7894de5d6d6c",
+      "name": "Upload final video",
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": "a5mYn2gEB2FHtfwa",
+          "name": "Ecommojo-Google Drive account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "inputDataFieldName": "Upload_Product_Photo",
+        "name": "={{ $json['Upload Product Photo'][0].filename }}",
+        "driveId": {
+          "__rl": true,
+          "mode": "list",
+          "value": "My Drive"
+        },
+        "folderId": {
+          "__rl": true,
+          "value": "1YP9u8UL90KcXoU_u6WKH3bYB1V1iXe7r",
+          "mode": "list",
+          "cachedResultName": "Product Photos",
+          "cachedResultUrl": "https://drive.google.com/drive/folders/1YP9u8UL90KcXoU_u6WKH3bYB1V1iXe7r"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3,
+      "position": [
+        480,
+        16
+      ],
+      "id": "b6c1b6c2-8026-4f2e-8c17-a0c5cd36c355",
+      "name": "Upload product image",
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": "a5mYn2gEB2FHtfwa",
+          "name": "Ecommojo-Google Drive account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=Product description: {{ $json.content }}\nVideo Suggestion: {{ $('On form submission').item.json.Description }}",
+        "hasOutputParser": true,
+        "options": {
+          "systemMessage": "=Create a cinematic timeline-formatted video prompt using the Sora 2 Timeline Prompting Structure.\n\nThe video should include a Creative Direction block and a Timeline Breakdown with clear, visual, and cinematic pacing.\n\nKeep the tone concise, professional, and filmic — written as if by a director.\n\nUse 3–4 seconds per timeline section unless otherwise specified.\n\n# Required Structure\n\nCreative Direction Block:\n\nVibe: [describe tone and mood — e.g., cinematic realism, vibrant energy, elegant minimalism]  \nFormat: [aspect ratio and type — e.g., 16:9 product commercial, 9:16 social short, 21:9 cinematic film]  \nGenre: [style — e.g., lifestyle, tech, travel, mystery, fashion, nature]\n\n\n# Timeline Breakdown (default 12 seconds):\n\n[0–3s] HOOK: CAM: [camera motion + framing]. SVX: [sound/music cues]. EMOTION: [mood or performance].  \n[3–6s] CONTEXT: CAM: [visual shift revealing setting or story]. SVX: [ambient or narrative sound]. EMOTION: [tone].  \n[6–9s] CLIMAX: CAM: [dynamic or emotional action]. VO: [voice line if any]. SVX: [music or emphasis]. EMOTION: [heightened state].  \n[9–12s] RESOLUTION: CAM: [final visual or wide shot]. TRANSITION: [fade, logo reveal, or scene change]. SVX: [music or sound fade].  \n\n# Optional Enhancements\n\nAdd product focus (e.g., close-ups, brand color lighting).\nAdd nature cues (e.g., sunlight, mist, movement).\nInclude tagline in the resolution section.\nKeep every moment visual, not descriptive prose.\nMaintain emotional pacing from intrigue → reveal → energy → satisfaction.\n\n# Example Output 1\n\nVibe: sleek innovation, modern elegance, empowering tone\nFormat: 16:9 cinematic product commercial\nGenre: tech & lifestyle\n\n[0–3s] HOOK: CAM: extreme close-up of light gliding over the iPhone 17’s smooth aluminum edges — reflections shift like liquid metal. SVX: soft futuristic pulse. EMOTION: curiosity and awe.\n[3–6s] CONTEXT: CAM: seamless transition to a cityscape at sunrise — a hand lifts the phone, screen lights up with vivid clarity. VO: “Designed to move with you.” EMOTION: inspiration and possibility.\n[6–9s] CLIMAX: CAM: dynamic montage — camera tracking slow-motion action shots, instant photo capture, 3D visuals on the display. SVX: sharp clicks and ambient tones blend into an uplifting beat. EMOTION: empowerment and creativity.\n[9–12s] RESOLUTION: CAM: macro shot of the glowing Apple logo as the screen fades to black. TRANSITION: text appears — “iPhone 17. Beyond the frame.” SVX: smooth electronic note fades out.\n\n# Example Output 2\nVibe: vibrant nightlife, crisp refreshment, energetic tone\nFormat: 16:9 cinematic commercial\nGenre: lifestyle & beverage\n\n[0–3s] HOOK: CAM: close-up of a chilled Heineken bottle being set on a glossy bar counter — condensation glistens under neon lights. SVX: faint clink of glass, ambient city buzz. EMOTION: anticipation and cool confidence.\n[3–6s] CONTEXT: CAM: quick cuts of friends laughing in a rooftop bar, city skyline glowing in the background. SVX: upbeat electronic beat kicks in. EMOTION: freedom and connection.\n[6–9s] CLIMAX: CAM: slow-motion pour — golden beer fills a glass, frothy head rising perfectly. VO: “Crisp. Original. Unmistakably Heineken.” EMOTION: exhilaration and refreshment.\n[9–12s] RESOLUTION: CAM: wide shot of toasting glasses against the night sky. TRANSITION: Heineken logo fade-in with tagline “Open Your World.” SVX: music peaks, then fades into soft crowd laughter.\n\n# Key Instructions\nFirst 3 seconds shouldn't always have to be the exact product image I uploaded"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2.2,
+      "position": [
+        896,
+        16
+      ],
+      "id": "96531d62-35fd-4cf6-bf1d-3d4e21e74871",
+      "name": "Creative Director"
+    },
+    {
+      "parameters": {
+        "workflowId": {
+          "__rl": true,
+          "value": "BjxClEpI4ARcxfD7",
+          "mode": "list",
+          "cachedResultUrl": "/workflow/BjxClEpI4ARcxfD7",
+          "cachedResultName": "Kie.ai Sora 2 Image to video"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "prompt": "={{ $json.output }}",
+            "image_urls": "={{ [$('Upload product image').item.json.webContentLink] }}",
+            "aspect_ratio": "={{ $('On form submission').item.json.aspect_ratio }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "prompt",
+              "displayName": "prompt",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            },
+            {
+              "id": "image_urls",
+              "displayName": "image_urls",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "array",
+              "removed": false
+            },
+            {
+              "id": "aspect_ratio",
+              "displayName": "aspect_ratio",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": true
+        },
+        "mode": "each",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1.3,
+      "position": [
+        1264,
+        16
+      ],
+      "id": "86407daf-9cce-47e3-8abe-65f714aac222",
+      "name": "Call 'Kie.ai Sora 2 Image to video'",
+      "retryOnFail": true
+    },
+    {
+      "parameters": {
+        "content": "\n# Sora 2 + n8n: Hollywood-Quality UGC Ad Generator\n**This template was created by Alex Safari.**  \nSubscribe to my YouTube channel for more AI automation tutorials:  \n👉 https://www.youtube.com/@alexsafari1  \n\n📺 **Watch the Full Tutorial Video:**  \nhttps://youtu.be/sacaHOgmXc0\n\n## Overview  \nThis workflow transforms a **single uploaded product photo** into a **cinematic product video ad** — automatically.  \nUsing **Sora 2**, **GPT-4o**, **Gemini 2.5 Pro**, and **n8n**, it generates stunning **CGI-level UGC ads with AI** that look like professional commercials.\n\nPerfect for creators, e-commerce founders, and agencies who want **high-quality product videos** without filming or editing.\n\n## Workflow Breakdown\n\n### 1. On Form Submission\n- Collects user-uploaded product image\n- Captures aspect ratio and description\n\n### 2. Upload Product Image\n- Stores photo in Google Drive (“Product Photos” folder)\n\n### 3. Analyze Image (GPT-4o)\n- Performs detailed visual analysis\n- Returns structured YAML including color palette, material, and product geometry\n\n### 4. Creative Director (Gemini 2.5 Pro)\n- Writes a cinematic timeline prompt in Sora 2’s style\n- Defines creative direction, camera motion, and emotion pacing\n\n### 5. Call “Kie.ai Sora 2 Image to Video”\n- Sends the image + prompt to Sora 2\n- Generates CGI-quality cinematic video\n\n### 6. Download Video\n- Retrieves the generated video via API\n\n### 7. Upload Final Video\n- Saves video to Google Drive (“Product Videos” folder)\n\n### 8. Create Baserow Row\n- Logs video metadata, Drive link, and workflow status\n\n\n## ⚙️ Tech Stack  \n- **n8n** – automation & workflow logic  \n- **Sora 2 (Kie.ai)** – image-to-video engine  \n- **GPT-4o (OpenAI)** – image analysis  \n- **Gemini 2.5 Pro (Google)** – creative direction prompting  \n- **Baserow & Google Drive** – database + file management  \n\n---\n\n\n\n📧 **Email me directly**: contact@loopsera.com  \n   For quick questions, customisation requests, or workflow troubleshooting.  \n\n🌐 **Visit my website**: [https://loopsera.com](https://loopsera.com)  \n   Explore more automation templates, services, and case studies.  \n\n📞 **Book a Discovery Call**: [https://cal.com/loopsera/discoverycall](https://cal.com/loopsera/discoverycall)  \n   For businesses that need a custom AI agent built around their Instagram and ecommerce setup.  \n\n🎓 **1-on-1 Coaching Session**: [https://cal.com/loopsera/n8n-ai-agent-coaching-session](https://cal.com/loopsera/n8n-ai-agent-coaching-session)  \n   Personalised coaching to help you build, troubleshoot, or optimise n8n AI workflows. Perfect for both beginners and advanced users.  \n\n💬 **Join the AI Builder’s Boardroom (Skool Community)**: [https://www.skool.com/ai-builders-boardroom-1717](https://www.skool.com/ai-builders-boardroom-1717) — a professional community for builders creating AI agents that talk, listen, and sell, focused on deploying the digital workforce of the future.\n",
+        "height": 1632,
+        "width": 1360
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -1232,
+        -672
+      ],
+      "typeVersion": 1,
+      "id": "6be73f29-f167-4487-b563-68712cd2d73f",
+      "name": "Sticky Note"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "On form submission": {
+      "main": [
+        [
+          {
+            "node": "Upload product image",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Analyze image": {
+      "main": [
+        [
+          {
+            "node": "Creative Director",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenRouter Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Creative Director",
+            "type": "ai_languageModel",
+            "index": 0
+          },
+          {
+            "node": "Structured Output Parser",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Structured Output Parser": {
+      "ai_outputParser": [
+        [
+          {
+            "node": "Creative Director",
+            "type": "ai_outputParser",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Download Video": {
+      "main": [
+        [
+          {
+            "node": "Upload final video",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Upload final video": {
+      "main": [
+        [
+          {
+            "node": "Create a row",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Upload product image": {
+      "main": [
+        [
+          {
+            "node": "Analyze image",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Creative Director": {
+      "main": [
+        [
+          {
+            "node": "Call 'Kie.ai Sora 2 Image to video'",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Call 'Kie.ai Sora 2 Image to video'": {
+      "main": [
+        [
+          {
+            "node": "Download Video",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "847a5677-f51c-431d-a086-cf7ab6808dfa",
+  "meta": {
+    "instanceId": "8e5aa95c0552a76b6f87328dfd800de4d3cc8f008434bf9076c4dfb3cb935d83"
+  },
+  "id": "44ABAZ71EPwwY1hd",
+  "tags": []
+}

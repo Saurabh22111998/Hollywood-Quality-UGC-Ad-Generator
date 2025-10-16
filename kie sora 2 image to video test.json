@@ -1,0 +1,363 @@
+{
+  "name": "kie sora 2 image to video test",
+  "nodes": [
+    {
+      "parameters": {
+        "workflowInputs": {
+          "values": [
+            {
+              "name": "prompt"
+            },
+            {
+              "name": "image_urls",
+              "type": "array"
+            },
+            {
+              "name": "aspect_ratio"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "d0330c50-3f84-487c-ad03-affc942fb29a",
+      "name": "When Executed by Another Workflow"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.kie.ai/api/v1/jobs/createTask",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "model",
+              "value": "sora-2-image-to-video"
+            },
+            {
+              "name": "input.prompt",
+              "value": "={{ $json.prompt }}"
+            },
+            {
+              "name": "input.image_urls",
+              "value": "={{ $json.image_urls }}"
+            },
+            {
+              "name": "input.aspect_ratio",
+              "value": "={{ $json.aspect_ratio }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        208,
+        0
+      ],
+      "id": "33457e4d-ae82-49c4-80c9-eb4a5b13d7a0",
+      "name": "Submit request",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "ghhDmIje8kw9sST9",
+          "name": "Kie.ai"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "url": "https://api.kie.ai/api/v1/jobs/recordInfo",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "taskId",
+              "value": "={{ $json.data.taskId }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        416,
+        0
+      ],
+      "id": "2332e08f-2038-40c6-8833-3f3234e59a7d",
+      "name": "Query Task",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "ghhDmIje8kw9sST9",
+          "name": "Kie.ai"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.data.state }}",
+                    "rightValue": "success",
+                    "operator": {
+                      "type": "string",
+                      "operation": "contains"
+                    },
+                    "id": "3a4ddf60-36be-4e50-9eb7-eddbb02f8db4"
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "success"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "da42a8b6-744a-4759-9d2d-485c6c84518f",
+                    "leftValue": "={{ $json.data.state }}",
+                    "rightValue": "fail",
+                    "operator": {
+                      "type": "string",
+                      "operation": "contains"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "fail"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "729e548a-53cb-412c-8104-d6d114d32480",
+                    "leftValue": "={{ $json.data.state }}",
+                    "rightValue": "generating",
+                    "operator": {
+                      "type": "string",
+                      "operation": "contains"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "generating"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "d47b65c4-a154-42c1-98ae-5f70684746b5",
+                    "leftValue": "={{ $json.data.state }}",
+                    "rightValue": "queuing",
+                    "operator": {
+                      "type": "string",
+                      "operation": "contains"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "queuing"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "b06763c2-ee47-44c9-8be6-823f7af5775e",
+                    "leftValue": "={{ $json.data.state }}",
+                    "rightValue": "waiting",
+                    "operator": {
+                      "type": "string",
+                      "operation": "contains"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "waiting"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.3,
+      "position": [
+        640,
+        -48
+      ],
+      "id": "aac3fc94-0e35-41fc-9363-c4c087f0f7fb",
+      "name": "Switch"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        848,
+        176
+      ],
+      "id": "be423bbb-7c5b-40fa-a0b8-86ba57463255",
+      "name": "Wait",
+      "webhookId": "1b4d62e1-9f4a-4aa8-86fa-d1c2cfa89046"
+    }
+  ],
+  "pinData": {
+    "When Executed by Another Workflow": [
+      {
+        "json": {
+          "prompt": "Vibe: crisp athleticism, sleek durability, empowering tone\nFormat: 16:9 cinematic sports commercial\nGenre: lifestyle & sports\n\n[0–3s] HOOK: CAM: dynamic handheld shot tracking an athlete grabbing the Takeya Actives bottle from a gym bag — focus on the matte stainless steel surface and spout lid detail. SVX: subtle gym ambiance with soft clinks. EMOTION: readiness and focus.\n[3–6s] CONTEXT: CAM: wide shot of athlete in an outdoor training setting — sunlit, slight breeze moving, bottle in hand as they prepare for a run. SVX: natural outdoor sounds, distant birds, light breathing. EMOTION: calm determination.\n[6–9s] CLIMAX: CAM: energetic runner in motion — close-ups of the bottle being unscrewed and the athlete taking a refreshing sip. VO: “Stay hydrated, stay unstoppable.” SVX: upbeat rhythmic track rising. EMOTION: vitality and endurance.\n[9–12s] RESOLUTION: CAM: steady shot of the bottle resting against rocks with morning light casting soft shadows. TRANSITION: fade to Takeya logo with tagline “Takeya Actives. Fuel your adventure.” SVX: music softens to tranquil finish.",
+          "image_urls": [
+            "https://drive.google.com/uc?id=1sd7n88KIclCH1eLpdfwPo94zM4Sw-EQO&export=download"
+          ],
+          "aspect_ratio": "landscape"
+        }
+      }
+    ],
+    "Submit request": [
+      {
+        "json": {
+          "code": 200,
+          "msg": "success",
+          "data": {
+            "taskId": "106b4feddd39f4c22c49e15f31bbafbb",
+            "recordId": "106b4feddd39f4c22c49e15f31bbafbb"
+          }
+        }
+      }
+    ]
+  },
+  "connections": {
+    "When Executed by Another Workflow": {
+      "main": [
+        [
+          {
+            "node": "Submit request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Submit request": {
+      "main": [
+        [
+          {
+            "node": "Query Task",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Query Task": {
+      "main": [
+        [
+          {
+            "node": "Switch",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Switch": {
+      "main": [
+        [],
+        [],
+        [
+          {
+            "node": "Wait",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Wait",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Wait",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait": {
+      "main": [
+        [
+          {
+            "node": "Query Task",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "f444a13c-83b8-46ff-880e-1cae9e4d2907",
+  "meta": {
+    "instanceId": "8e5aa95c0552a76b6f87328dfd800de4d3cc8f008434bf9076c4dfb3cb935d83"
+  },
+  "id": "JYsV0rWQ9DOGszf0",
+  "tags": []
+}
