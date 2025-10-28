@@ -116,8 +116,25 @@ Add the following integrations:
 
 ---
 
+
 ### 4. Deploy
 
 - Run the workflow once to generate your unique **Form URL**  
 - Upload a product photo and watch your cinematic ad appear in your Drive
 
+
+---
+
+📧 **Email me directly**: contact@loopsera.com
+For quick questions, customisation requests, or workflow troubleshooting.
+
+🌐 **Visit my website**: [https://loopsera.com](https://loopsera.com)
+Explore more automation templates, services, and case studies.
+
+📞 **Book a Discovery Call**: [https://cal.com/loopsera/discoverycall](https://cal.com/loopsera/discoverycall)
+For businesses that need a custom AI solutions built.
+
+🎓 **1-on-1 Coaching Session**: [https://cal.com/loopsera/n8n-ai-agent-coaching-session](https://cal.com/loopsera/n8n-ai-agent-coaching-session)
+Personalised coaching to help you build, troubleshoot, or optimise n8n AI workflows. Perfect for both beginners and advanced users.
+
+💬 **Join the AI Builder’s Boardroom (Skool Community)**: [https://www.skool.com/ai-builders-boardroom-1717](https://www.skool.com/ai-builders-boardroom-1717) — a professional community for builders creating AI agents that talk, listen, and sell, focused on deploying the digital workforce of the future.
